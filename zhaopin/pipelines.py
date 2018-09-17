@@ -11,6 +11,7 @@ import time
 
 
 class ZhaopinPipeline(object):
+    #该部分代码为连接MongoDB
     # def __init__(self):
     #     host = settings['MG_HS']
     #     port = settings['MG_PR']
@@ -30,14 +31,13 @@ class ZhaopinPipeline(object):
     #         print('Error！')
     #     return item
 
-
+    # 该部分代码为连接Mysql
     def __init__(self):
         host = settings['MS_HS']
         port = settings['MS_PR']
         user = settings['MS_US']
         passwd = settings['MS_PD']
         db = settings['MS_DB']
-        # tab = settings['MS_TB']
         self.client = pymysql.connect(
             host = host,
             port = port,
@@ -83,10 +83,7 @@ class ZhaopinPipeline(object):
                     `isIdentify` varchar (16) default null comment'是否认证',
                     `writeTime` datetime not null comment'服务器时间/写入时间'
                 )engine = innodb default charset=utf8 comment='拉勾招聘信息';"""
-
         self.cur.execute(crt)
-        # self.cur.close()
-
 
     def process_item(self, item, spider):
         ins = """insert into lgo (`zhaopinId`,
@@ -160,7 +157,6 @@ class ZhaopinPipeline(object):
                                    item['pubTime'],
                                    item['keyWord'],
                                    item['recDep'])
-
         try:
             self.cur.execute(ins)
             self.client.commit()
@@ -169,10 +165,8 @@ class ZhaopinPipeline(object):
         except Exception as e:
             self.client.rollback()
             print('\n\033[1;31m{0} Warning：插入失败！ {0}\033[0m'.format(23*'+'))
-
             print('\033[1;31m{1}{0}{1} \033[0m'.format(e,6*'+'))
             print('\033[1;31m{0}\033[0m\n'.format(65*'+'))
         return item
     def spider_close(self,spider):
         self.client.close()
-
