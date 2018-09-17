@@ -15,18 +15,18 @@ class LgoSpider(scrapy.Spider):
     cookie = settings['COOKIE']
 
     def start_requests(self):
-
-        # city = quote('上海')
-        city = '上海'
-        borough = '浦东新区'
-        # '&district={borough}'
-        kd = '测试工程师'
-        if borough == '':
+        kws={'city':'上海','district':'浦东新区','kd':'测试工程师'}
+        city = kws['city']
+        district = kws['district']
+        kd = kws['kd']
+        if district == '':
             url = f'https://www.lagou.com/jobs/positionAjax.json?px=new&city={city}&needAddtionalResult=false'
+            referer = f'https://www.lagou.com/jobs/list_{kd}?px=new&city={city}'
         else:
-            url = f'https://www.lagou.com/jobs/positionAjax.json?px=new&city={city}&&district={borough}needAddtionalResult=false'
-        for num in range(1,2):
-            referer = url.replace('&needAddtionalResult=false','')
+            url = f'https://www.lagou.com/jobs/positionAjax.json?px=new&city={city}&district={district}&needAddtionalResult=false'
+            referer = f'https://www.lagou.com/jobs/list_{kd}?px=new&city={city}&district={district}'
+        for num in range(1,31):
+            # referer = url.replace('&needAddtionalResult=false','')
             hds = {
                 'Host': 'www.lagou.com',
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:62.0) Gecko/20100101 Firefox/62.0',
@@ -48,9 +48,9 @@ class LgoSpider(scrapy.Spider):
     def parse(self, response):
         pn = response.meta['pn']
         referer =response.meta['referer']
-        # print(response.text)
+        print(response.text)
         isSuccess = json.loads(response.text)['success']
-        while isSuccess == 'true':
+        if isSuccess == True:
             pgNo = json.loads(response.text)['content']['pageNo']
             if pgNo != 0:
                 print(f'第{pn}页页面信息获取成功！')
@@ -104,6 +104,7 @@ class LgoSpider(scrapy.Spider):
         item = response.meta['item']
         pn = response.meta['pn']
         item['job'] = response.xpath('//div[@class="job-name"]/@title')[0].extract()
+        item['recDep']= response.xpath('//div[@class="job-name"]/div[@class="company"]/text()')[0].extract()
         item['salary'] = response.xpath('//span[@class="salary"]/text()')[0].extract().strip()
         item['area'] = response.xpath('string(//dd[@class="job_request"]/p/span[2])')[0].extract().replace('/','').strip()
         item['experirence'] = response.xpath('string(//dd[@class="job_request"]/p/span[3])')[0].extract().replace('/','').strip()
@@ -133,10 +134,10 @@ class LgoSpider(scrapy.Spider):
         item['city'] = response.xpath('//input[@name="workAddress"]/@value')[0].extract()
         lenAdd = len(response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址','').strip().split('-'))
         if lenAdd == 4:
-            item['borough'] = response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址','').strip().split('-')[1].strip()
+            item['district'] = response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址','').strip().split('-')[1].strip()
             item['street'] = response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址','').strip().split('-')[2].strip()
         else:
-            item['borough'] = None
+            item['district'] = None
             item['street'] = None
         item['jobWelfare'] = response.xpath('string(//dd[@class="job-advantage"])')[0].extract().replace('职位诱惑：','').strip()
         item['jobDetail'] = response.xpath('string(//dd[@class="job_bt"])')[0].extract().replace('职位描述：', '').strip().replace('\xa0','')

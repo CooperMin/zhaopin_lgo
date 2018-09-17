@@ -103,12 +103,12 @@ class ZhaopinDownloaderMiddleware(object):
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
 
-class HttpProxyMiddleware(object):
-    def process_request(self,request,spider):
-        ip = ['http://113.237.252.184:8943',  # 到期时间： 2018-09-17 15:01:02
-              'http://111.76.190.199:4234']  # 到期时间： 2018-09-17 15:01:03
-              # 'http://123.12.254.213:1246']  # 到期时间： 2018-09-17 15:01:07
-#               'http://119.5.181.248:3979',  # 到期时间： 2018-09-16 02:45:02
-#               'http://112.195.98.55:4255']  # 到期时间： 2018-09-16 02:43:03
-        request.meta['proxy'] = random.choice(ip)
-        print(request.meta['proxy'])
+# class HttpProxyMiddleware(object):
+#     def process_request(self,request,spider):
+#         ip = ['http://117.65.50.130:4251',  # 到期时间： 2018-09-18 00:19:02
+#               'http://182.105.200.237:4162']  # 到期时间： 2018-09-18 00:19:09
+#               # 'http://182.108.166.231:4276']  # 到期时间： 2018-09-17 23:35:02
+# #               'http://119.5.181.248:3979',  # 到期时间： 2018-09-16 02:45:02
+# #               'http://112.195.98.55:4255']  # 到期时间： 2018-09-16 02:43:03
+#         request.meta['proxy'] = random.choice(ip)
+#         print(request.meta['proxy'])

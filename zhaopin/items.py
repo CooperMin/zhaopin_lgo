@@ -42,10 +42,11 @@ class ZhaopinItem(scrapy.Item):
     financeOrg = scrapy.Field()     #(29)投资机构
     comPage = scrapy.Field()        #(30)公司主页
     city = scrapy.Field()           #(31)城市
-    borough = scrapy.Field()        #(32)区县
+    district = scrapy.Field()        #(32)区县
     street = scrapy.Field()         #(33)街道/社区
     pubTime = scrapy.Field()        #(34)发布时间
     keyWord = scrapy.Field()        #(35)关键词
+    recDep = scrapy.Field()         #(36)招聘部门
 
 
 

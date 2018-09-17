@@ -51,9 +51,10 @@ class ZhaopinPipeline(object):
                     `job` varchar (64) not null comment'职位',
                     `pubTime` varchar (32) default null comment'发布时间',
                     `city` varchar (32) not null comment'城市',
-                    `borough` varchar (32) not null comment'区县',
+                    `district` varchar (32) not null comment'区县',
                     `street` varchar (32) not null comment'街道/社区',
                     `comName` varchar (128) default null comment'公司名称（简称/常用）',
+                    `recDep` varchar (128) default null comment'公司名称（简称/常用）',
                     `salary` varchar (32) default null comment'薪资',
                     `experirence` varchar (32) default null comment'工作经验',
                     `education` varchar (32) default null comment'教育水平',
@@ -118,11 +119,12 @@ class ZhaopinPipeline(object):
                                   `financeOrg`,
                                   `comPage`,
                                   `city`,
-                                  `borough`,
+                                  `district`,
                                   `street`,
                                   `pubTime`,
-                                  `keyWord`)
-                        values ('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')
+                                  `keyWord`,
+                                  `recDep`)
+                        values ('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')
                         """.format(item['zhaopinId'],
                                    item['userId'],
                                    item['phone'],
@@ -153,10 +155,11 @@ class ZhaopinPipeline(object):
                                    item['financeOrg'],
                                    item['comPage'],
                                    item['city'],
-                                   item['borough'],
+                                   item['district'],
                                    item['street'],
                                    item['pubTime'],
-                                   item['keyWord'])
+                                   item['keyWord'],
+                                   item['recDep'])
 
         try:
             self.cur.execute(ins)
