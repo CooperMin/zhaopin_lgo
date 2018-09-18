@@ -14,7 +14,8 @@ class LgoSpider(scrapy.Spider):
     cookie = settings['COOKIE']
 
     def start_requests(self):
-        kws = {'px': 'new', 'city': '上海', 'district': '浦东新区', 'bizArea': '', 'kd': '测试工程师'}
+        #此处可修改参数
+        kws = {'px': 'new', 'city': '上海', 'district': '浦东新区', 'bizArea': '', 'kd': 'Python'}
         px = kws['px']
         city = kws['city']
         district = kws['district']

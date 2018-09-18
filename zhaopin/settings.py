@@ -56,10 +56,10 @@ SPIDER_MIDDLEWARES = {
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    'zhaopin.middlewares.ZhaopinDownloaderMiddleware': 200,
-   # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware':400,
-   # 'zhaopin.middlewares.HttpProxyMiddleware':400,
+   'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware':400,
+   # 'zhaopin.middlewares.HttpProxyMiddleware':250,
    # 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware':None,
-   # 'scrapy.contrib.downloadermiddleware.redirect.RedirectMiddleware':None
+   # 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware':None
 }
 
 # Enable or disable extensions
