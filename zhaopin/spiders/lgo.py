@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from urllib.parse import quote
 from scrapy import FormRequest,Request
 from scrapy.conf import settings
 import json
@@ -37,7 +36,6 @@ class LgoSpider(scrapy.Spider):
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
             'Referer': referer.replace(f'{px}', 'default'),
-            'Cookie': self.cookie,
             'Cache-Control': 'max-age=0',
             'Connection': 'keep-alive',
             'Upgrade-Insecure-Requests': 1
@@ -52,35 +50,6 @@ class LgoSpider(scrapy.Spider):
         kd = response.meta['kd']
         url = response.meta['url']
         referer = response.meta['referer']
-
-
-        # kws={'px':'new','city':'上海','district':'浦东新区','bizArea':'','kd':'测试工程师'}
-        # px = kws['px']
-        # city = kws['city']
-        # district = kws['district']
-        # bizArea = kws['bizArea']
-        # kd = kws['kd']
-        # if district == '' and bizArea == '':
-        #     url = f'https://www.lagou.com/jobs/positionAjax.json?px={px}&city={city}&needAddtionalResult=false'
-        #     referer = f'https://www.lagou.com/jobs/list_{kd}?px={px}&city={city}'
-        # elif bizArea == '' and district != '':
-        #     url = f'https://www.lagou.com/jobs/positionAjax.json?px={px}&city={city}&district={district}&needAddtionalResult=false'
-        #     referer = f'https://www.lagou.com/jobs/list_{kd}?px={px}&city={city}&district={district}'
-        # else:
-        #     url = f'https://www.lagou.com/jobs/positionAjax.json?px={px}&city={city}&district={district}&bizArea={bizArea}&needAddtionalResult=false'
-        #     referer = f'https://www.lagou.com/jobs/list_{kd}?px={px}&city={city}&district={district}&bizArea={bizArea}'
-        # firLink = f'https://www.lagou.com/jobs/list_{kd}?px={px}&city={city}&district={district}&bizArea={bizArea}#order'
-        # firHds = {
-        #     'Host': 'www.lagou.com',
-        #     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:62.0) Gecko/20100101 Firefox/62.0',
-        #     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        #     'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
-        #     'Referer': referer.replace(f'{px}','default'),
-        #     'Cookie':self.cookie,
-        #     'Cache-Control': 'max-age=0',
-        #     'Connection': 'keep-alive',
-        #     'Upgrade-Insecure-Requests': 1
-        # }
         for num in range(1,count+1):
             hds = {
                 'Host': 'www.lagou.com',
@@ -101,7 +70,6 @@ class LgoSpider(scrapy.Spider):
             else:
                 first = 'false'
             yield FormRequest(url=url,headers=hds,formdata={'first':first,'pn':f'{num}','kd':f'{kd}'},callback=self.parse,cookies=self.cookie,meta=meta,dont_filter=True)
-
 
     def parse(self, response):
         pn = response.meta['pn']
