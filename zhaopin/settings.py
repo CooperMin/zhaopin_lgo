@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 2.5
+DOWNLOAD_DELAY = 3.5
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -124,7 +124,7 @@ AUTOTHROTTLE_ENABLED = True
 #           'PRE_SITE': 'https%3A%2F%2Fwww.lagou.com%2Fjobs%2Flist_Python%3F%26px%3Ddefault%26city%3D%25E4%25B8%258A%25E6%25B5%25B7',
 #           'PRE_LAND': 'https%3A%2F%2Fwww.lagou.com%2Fjobs%2Flist_Python%3Fpx%3Dnew%26city%3D%25E4%25B8%258A%25E6%25B5%25B7'}
 
-COOKIE = {'_ga': 'GA1.2.2138864544.1533631818', 'Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6': '1536730869,1536804703,1536891947,1537151709', 'user_trace_token': '20180807165100-01ebdef2-9a1f-11e8-a341-5254005c3644', 'LGUID': '20180807165100-01ebe1dd-9a1f-11e8-a341-5254005c3644', 'LG_LOGIN_USER_ID': '4044580018fedca9af00dfd183c448a8abc47cb79e14ec34a0d6b234cf2dae68', 'index_location_city': '%E4%B8%8A%E6%B5%B7', 'showExpriedIndex': '1', 'showExpriedCompanyHome': '1', 'showExpriedMyPublish': '1', 'hasDeliver': '0', 'gate_login_token': 'f6814577d7e83bc92d09d3aa2c62fa200a12a5538c5402ef76598b62adb6c168', 'JSESSIONID': 'ABAAABAAAGFABEF7D3D97474D79F7829367FFB32011E6BC', '_gat': '1', 'LGSID': '20180917103518-5129c141-ba22-11e8-a14b-525400f775ce', 'PRE_UTM': '', 'PRE_HOST': '', 'PRE_SITE': '', 'PRE_LAND': 'https%3A%2F%2Fwww.lagou.com%2F', 'LGRID': '20180917103527-565bfd30-ba22-11e8-a14b-525400f775ce', 'Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6': '1537151717', '_gid': 'GA1.2.2121851475.1537151709', '_putrc': '57BBA9EB292AEBD8123F89F2B170EADC', 'login': 'true', 'unick': 'CooperMin', 'TG-TRACK-CODE': 'index_navigation', 'SEARCH_ID': 'cfa638218dc24b4fa7498818c9147dd5', 'X_HTTP_TOKEN': '8b5c5ad8c19d4424756f2e8e29d7c32e'}
+COOKIE = {'_ga': 'GA1.2.2138864544.1533631818', 'Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6': '1536804703,1536891947,1537151709,1537239753', 'user_trace_token': '20180807165100-01ebdef2-9a1f-11e8-a341-5254005c3644', 'LGUID': '20180807165100-01ebe1dd-9a1f-11e8-a341-5254005c3644', 'LG_LOGIN_USER_ID': '4044580018fedca9af00dfd183c448a8abc47cb79e14ec34a0d6b234cf2dae68', 'index_location_city': '%E4%B8%8A%E6%B5%B7', 'showExpriedIndex': '1', 'showExpriedCompanyHome': '1', 'showExpriedMyPublish': '1', 'hasDeliver': '0', 'gate_login_token': '597a851906b7a35fd1c77508ef403268e257ec90cd7713c2d27c441330929743', '_gid': 'GA1.2.2121851475.1537151709', 'SEARCH_ID': '9bb3f2f446d54f5db6d247ca5e7626fd', 'JSESSIONID': 'ABAAABAAAGGABCB37B492CE3C91EBFAD212544CA70166B2', 'Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6': '1537249330', 'LGRID': '20180918134221-9c864bd7-bb05-11e8-a1da-525400f775ce', '_putrc': '57BBA9EB292AEBD8123F89F2B170EADC', 'login': 'true', 'unick': 'CooperMin', 'TG-TRACK-CODE': 'index_navigation', '_gat': '1', 'LGSID': '20180918134136-81c77ab5-bb05-11e8-baf2-5254005c3644', 'PRE_UTM': '', 'PRE_HOST': '', 'PRE_SITE': 'https%3A%2F%2Fwww.lagou.com%2Fjobs%2Flist_Python%3Fpx%3Dnew%26city%3D%25E4%25B8%258A%25E6%25B5%25B7%26district%3D%25E6%25B5%25A6%25E4%25B8%259C%25E6%2596%25B0%25E5%258C%25BA%26bizArea%3D%25E9%2599%2586%25E5%25AE%25B6%25E5%2598%25B4', 'PRE_LAND': 'https%3A%2F%2Fwww.lagou.com%2F'}
 
 REDIRECT_ENABLE = False
 

@@ -49,19 +49,19 @@ class ZhaopinPipeline(object):
         crt = """create table if not exists lgo(
                     `keyWord` varchar (32) default null comment'关键词',
                     `job` varchar (64) not null comment'职位',
-                    `pubTime` varchar (32) default null comment'发布时间',
+                    `pubTime` varchar (32) not null comment'发布时间',
                     `city` varchar (32) not null comment'城市',
                     `district` varchar (32) not null comment'区县',
-                    `street` varchar (32) not null comment'街道/社区',
-                    `comName` varchar (128) default null comment'公司名称（简称/常用）',
+                    `bizArea` varchar (32) not null comment'街道/社区',
+                    `comName` varchar (128) not null comment'公司名称（简称/常用）',
                     `recDep` varchar (128) default null comment'公司名称（简称/常用）',
                     `salary` varchar (32) default null comment'薪资',
                     `experirence` varchar (32) default null comment'工作经验',
                     `education` varchar (32) default null comment'教育水平',
                     `workingMode` varchar (16) default null comment'工作方式',
                     `label` varchar (128) default null comment'标签',
-                    `jobWelfare` varchar (256) default null comment'职位诱惑',
-                    `jobDetail` text default null  comment'职位详情',
+                    `advantage` varchar (256) default null comment'职位诱惑',
+                    `description` text default null  comment'职位详情',
                     `comFamName` varchar (128) not null comment'公司名称（正式）',
                     `industry` varchar (64) default null comment'行业/领域',
                     `round` varchar (32) default null comment'融资轮次/发展阶段',
@@ -81,6 +81,8 @@ class ZhaopinPipeline(object):
                     `userLevel` varchar (32) default null comment'HR职级',
                     `canTalk` varchar (8) default null comment'交流意愿',
                     `isIdentify` varchar (16) default null comment'是否认证',
+                    `positionLng` varchar (32) default null comment'经度坐标',
+                    `positionLat` varchar (32) default null comment'纬度坐标',
                     `writeTime` datetime not null comment'服务器时间/写入时间'
                 )engine = innodb default charset=utf8 comment='拉勾招聘信息';"""
         self.cur.execute(crt)
@@ -95,8 +97,8 @@ class ZhaopinPipeline(object):
                                   `portrait`,
                                   `userLevel`,
                                   `canTalk`,
-                                  `jobWelfare`,
-                                  `jobDetail`,
+                                  `advantage`,
+                                  `description`,
                                   `address`,
                                   `job`,
                                   `salary`,
@@ -117,11 +119,13 @@ class ZhaopinPipeline(object):
                                   `comPage`,
                                   `city`,
                                   `district`,
-                                  `street`,
+                                  `bizArea`,
                                   `pubTime`,
                                   `keyWord`,
-                                  `recDep`)
-                        values ('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')
+                                  `recDep`,
+                                  `positionLng`,
+                                  `positionLat`)
+                        values ('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')
                         """.format(item['zhaopinId'],
                                    item['userId'],
                                    item['phone'],
@@ -131,8 +135,8 @@ class ZhaopinPipeline(object):
                                    item['portrait'],
                                    item['userLevel'],
                                    item['canTalk'],
-                                   item['jobWelfare'],
-                                   item['jobDetail'],
+                                   item['advantage'],
+                                   item['description'],
                                    item['address'],
                                    item['job'],
                                    item['salary'],
@@ -153,10 +157,12 @@ class ZhaopinPipeline(object):
                                    item['comPage'],
                                    item['city'],
                                    item['district'],
-                                   item['street'],
+                                   item['bizArea'],
                                    item['pubTime'],
                                    item['keyWord'],
-                                   item['recDep'])
+                                   item['recDep'],
+                                   item['positionLng'],
+                                   item['positionLat'])
         try:
             self.cur.execute(ins)
             self.client.commit()

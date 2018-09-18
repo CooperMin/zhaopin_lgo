@@ -15,17 +15,22 @@ class LgoSpider(scrapy.Spider):
     cookie = settings['COOKIE']
 
     def start_requests(self):
-        kws={'city':'上海','district':'杨浦区','kd':'测试工程师'}
+        kws={'px':'new','city':'上海','district':'杨浦区','bizArea':'','kd':'测试工程师'}
+        px = kws['px']
         city = kws['city']
         district = kws['district']
+        bizArea = kws['bizArea']
         kd = kws['kd']
-        if district == '':
-            url = f'https://www.lagou.com/jobs/positionAjax.json?px=new&city={city}&needAddtionalResult=false'
-            referer = f'https://www.lagou.com/jobs/list_{kd}?px=new&city={city}'
+        if district == '' and bizArea == '':
+            url = f'https://www.lagou.com/jobs/positionAjax.json?px={px}&city={city}&needAddtionalResult=false'
+            referer = f'https://www.lagou.com/jobs/list_{kd}?px={px}&city={city}'
+        elif bizArea == '' and district != '':
+            url = f'https://www.lagou.com/jobs/positionAjax.json?px={px}&city={city}&district={district}&needAddtionalResult=false'
+            referer = f'https://www.lagou.com/jobs/list_{kd}?px={px}&city={city}&district={district}'
         else:
-            url = f'https://www.lagou.com/jobs/positionAjax.json?px=new&city={city}&district={district}&needAddtionalResult=false'
-            referer = f'https://www.lagou.com/jobs/list_{kd}?px=new&city={city}&district={district}'
-        for num in range(2,3):
+            url = f'https://www.lagou.com/jobs/positionAjax.json?px={px}&city={city}&district={district}&bizArea={bizArea}&needAddtionalResult=false'
+            referer = f'https://www.lagou.com/jobs/list_{kd}?px={px}&city={city}&district={district}&bizArea={bizArea}'
+        for num in range(1,9):
             hds = {
                 'Host': 'www.lagou.com',
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:62.0) Gecko/20100101 Firefox/62.0',
@@ -40,7 +45,11 @@ class LgoSpider(scrapy.Spider):
                 'Connection': 'keep-alive'
             }
             meta = {'city': city, 'pn': num, 'kd': kd,'referer':referer}
-            yield FormRequest(url=url,headers=hds,formdata={'first':'false','pn':f'{num}','kd':kd},callback=self.parse,cookies=self.cookie,meta=meta)
+            if num == 1:
+                first = 'true'
+            else:
+                first = 'false'
+            yield FormRequest(url=url,headers=hds,formdata={'first':first,'pn':f'{num}','kd':f'{kd}'},callback=self.parse,cookies=self.cookie,meta=meta)
 
 
     def parse(self, response):
@@ -53,8 +62,9 @@ class LgoSpider(scrapy.Spider):
             if pgNo != 0:
                 print(f'第{pn}页页面信息获取成功！')
             else:
-                print(f'\033[1;31m ***Warning:第{pn}页获取失败！*** \033[0m')
+                print(f'\033[1;31m ***Warning:第{pn}页页面信息获取失败！*** \033[0m')
                 print(f'\033[1;31m {response.text} \033[0m')
+                print('\033[1;31m可能的错误：\n1.district对应的bizArea不一致。\n2.没有更多页面！\033[0m')
                 print('\033[1;31m {0} \033[0m \n'.format(30 * '*'))
 
             pn = response.meta['pn']
@@ -128,16 +138,22 @@ class LgoSpider(scrapy.Spider):
         lenAdd = len(response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址','').strip().split('-'))
         if lenAdd == 4:
             item['district'] = response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址','').strip().split('-')[1].strip()
-            item['street'] = response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址','').strip().split('-')[2].strip()
+            item['bizArea'] = response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址','').strip().split('-')[2].strip()
+            if item['bizArea'] == '':
+                item['bizArea'] = None
+            else:
+                item['bizArea'] = item['bizArea']
         elif lenAdd ==3:
             item['district'] = response.xpath('string(//dd[@class="job-address clearfix"])')[0].extract().replace('查看地图', '').replace('工作地址', '').strip().split('-')[1].strip()
-            item['street'] = None
+            item['bizArea'] = None
         else:
             item['district'] = None
-            item['street'] = None
-        item['jobWelfare'] = response.xpath('string(//dd[@class="job-advantage"])')[0].extract().replace('职位诱惑：','').strip()
-        item['jobDetail'] = response.xpath('string(//dd[@class="job_bt"])')[0].extract().replace('职位描述：', '').strip().replace('\xa0','')
+            item['bizArea'] = None
+        item['advantage'] = response.xpath('string(//dd[@class="job-advantage"])')[0].extract().replace('职位诱惑：','').strip()
+        item['description'] = response.xpath('string(//dd[@class="job_bt"])')[0].extract().replace('职位描述：', '').strip().replace('\xa0','')
         item['address'] = response.xpath('//input[@name="positionAddress"]/@value')[0].extract()
+        item['positionLng'] = response.xpath('//input[@name="positionLng"]/@value')[0].extract()
+        item['positionLat'] = response.xpath('//input[@name="positionLat"]/@value')[0].extract()
         yield item
 
 
