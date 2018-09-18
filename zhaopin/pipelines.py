@@ -54,7 +54,7 @@ class ZhaopinPipeline(object):
                     `district` varchar (32) not null comment'区县',
                     `bizArea` varchar (32) not null comment'街道/社区',
                     `comName` varchar (128) not null comment'公司名称（简称/常用）',
-                    `recDep` varchar (128) default null comment'公司名称（简称/常用）',
+                    `recDep` varchar (128) default null comment'招聘部门',
                     `salary` varchar (32) default null comment'薪资',
                     `experirence` varchar (32) default null comment'工作经验',
                     `education` varchar (32) default null comment'教育水平',
