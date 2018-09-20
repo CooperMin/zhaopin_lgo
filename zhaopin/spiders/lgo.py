@@ -15,7 +15,7 @@ class LgoSpider(scrapy.Spider):
 
     def start_requests(self):
         #此处可修改参数
-        kws = {'px': 'new', 'city': '上海', 'district': '浦东新区', 'bizArea': '', 'kd': 'web前端'}
+        kws = {'px': 'new', 'city': '上海', 'district': '浦东新区', 'bizArea': '', 'kd': 'Python'}
         px = kws['px']
         city = kws['city']
         district = kws['district']
