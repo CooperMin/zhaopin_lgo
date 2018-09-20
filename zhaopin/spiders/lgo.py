@@ -15,7 +15,7 @@ class LgoSpider(scrapy.Spider):
 
     def start_requests(self):
         #此处可修改参数
-        kws = {'px': 'new', 'city': '上海', 'district': '浦东新区', 'bizArea': '', 'kd': 'Python'}
+        kws = {'px': 'new', 'city': '上海', 'district': '黄浦区', 'bizArea': '外滩', 'kd': 'Python'}
         px = kws['px']
         city = kws['city']
         district = kws['district']
@@ -171,8 +171,8 @@ class LgoSpider(scrapy.Spider):
         else:
             item['district'] = None
             item['bizArea'] = None
-        item['advantage'] = response.xpath('string(//dd[@class="job-advantage"])')[0].extract().replace('职位诱惑：','').strip()
-        item['description'] = response.xpath('string(//dd[@class="job_bt"])')[0].extract().replace('职位描述：', '').strip().replace('\xa0','')
+        item['advantage'] = response.xpath('string(//dd[@class="job-advantage"])')[0].extract().replace('职位诱惑：','').replace("'","‘").strip()
+        item['description'] = response.xpath('string(//dd[@class="job_bt"])')[0].extract().replace('职位描述：', '').strip().replace('\xa0','').replace("'","‘")
         item['address'] = response.xpath('//input[@name="positionAddress"]/@value')[0].extract()
         item['positionLng'] = response.xpath('//input[@name="positionLng"]/@value')[0].extract()
         item['positionLat'] = response.xpath('//input[@name="positionLat"]/@value')[0].extract()
