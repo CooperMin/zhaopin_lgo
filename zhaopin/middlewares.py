@@ -6,7 +6,8 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-import random
+# import random
+# from zhaopin.settings import IPPOOR
 
 
 class ZhaopinSpiderMiddleware(object):
@@ -103,12 +104,9 @@ class ZhaopinDownloaderMiddleware(object):
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
 
-class HttpProxyMiddleware(object):
-    def process_request(self,request,spider):
-        ip = ['http://125.86.167.158:4697',  # 到期时间： 2018-09-18 21:22:08
-              'http://58.22.177.252:4254']  # 到期时间： 2018-09-18 21:27:12
-              # 'http://182.108.166.231:4276']  # 到期时间： 2018-09-17 23:35:02
-#               'http://119.5.181.248:3979',  # 到期时间： 2018-09-16 02:45:02
-#               'http://112.195.98.55:4255']  # 到期时间： 2018-09-16 02:43:03
-        request.meta['proxy'] = random.choice(ip)
-        print(request.meta['proxy'])
+# class HttpProxyMiddleware(object):
+#     def __init__(self,ip=''):
+#         self.ip = ip
+#     def process_request(self,request,spider):
+#         request.meta['proxy'] = random.choice(IPPOOR)
+#         print(request.meta['proxy'])

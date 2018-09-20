@@ -15,7 +15,7 @@ class LgoSpider(scrapy.Spider):
 
     def start_requests(self):
         #此处可修改参数
-        kws = {'px': 'new', 'city': '上海', 'district': '浦东新区', 'bizArea': '', 'kd': 'Python'}
+        kws = {'px': 'new', 'city': '上海', 'district': '浦东新区', 'bizArea': '', 'kd': 'web前端'}
         px = kws['px']
         city = kws['city']
         district = kws['district']
@@ -46,11 +46,13 @@ class LgoSpider(scrapy.Spider):
 
     def pageCountList(self,response):   #获取页面数量和招聘页面列表
         count = int(response.xpath('//span[@class="span totalNum"]/text()')[0].extract())
-        print(f'符合当前检索条件的页面共\033[1;33m{count}\033[0m页!')
+        countJob = response.xpath('//a[@id="tab_pos"]/span/text()')[0].extract()
+        print('符合当前检索条件的页面共计{2}{0}{3}页，职位：{2}{1}{3}!'.format(count,countJob,'\033[1;33m','\033[0m'))
         city = response.meta['city']
         kd = response.meta['kd']
         url = response.meta['url']
         referer = response.meta['referer']
+        # count = 1   #测试用，正式爬取数据需要将此处注释掉
         for num in range(1,count+1):
             hds = {
                 'Host': 'www.lagou.com',
@@ -84,7 +86,7 @@ class LgoSpider(scrapy.Spider):
             else:
                 print(f'\033[1;31m ***Warning:第{pn}页页面信息获取失败！*** \033[0m')
                 print(f'\033[1;31m {response.text} \033[0m')
-                print('\033[1;31m可能的错误：\n1.district对应的bizArea不一致。\n2.没有更多页面！\033[0m')
+                print('{0}可能的错误：\n1.district对应的bizArea不一致。\n2.没有更多页面！{1}'.format('\033[1;31m','\033[0m'))
                 print('\033[1;31m {0} \033[0m \n'.format(30 * '*'))
 
             pn = response.meta['pn']
@@ -96,8 +98,8 @@ class LgoSpider(scrapy.Spider):
                 item['zhaopinId'] = zhaopinId
                 item['userId'] = comInfo['userId']
                 item['phone'] = comInfo['phone']
-                if comInfo['positionName'] != '':
-                    item['positionName'] = comInfo['positionName']
+                if comInfo['positionName'] != '' and  comInfo['positionName'] != None:
+                    item['positionName'] = comInfo['positionName'].replace('&amp;','&').strip()
                 else:
                     item['positionName'] = None
                 item['receiveEmail'] = comInfo['receiveEmail']
@@ -175,9 +177,3 @@ class LgoSpider(scrapy.Spider):
         item['positionLng'] = response.xpath('//input[@name="positionLng"]/@value')[0].extract()
         item['positionLat'] = response.xpath('//input[@name="positionLat"]/@value')[0].extract()
         yield item
-
-
-
-
-
-
