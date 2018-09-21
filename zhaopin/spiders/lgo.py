@@ -15,7 +15,7 @@ class LgoSpider(scrapy.Spider):
 
     def start_requests(self):
         #此处可修改参数
-        kws = {'px': 'new', 'city': '上海', 'district': '黄浦区', 'bizArea': '外滩', 'kd': 'Python'}
+        kws = {'px': 'new', 'city': '上海', 'district': '黄浦区', 'bizArea': '南京东路', 'kd': 'Python'}
         px = kws['px']
         city = kws['city']
         district = kws['district']
@@ -60,6 +60,7 @@ class LgoSpider(scrapy.Spider):
                 'Accept': 'application/json, text/javascript, */*; q=0.01',
                 'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
                 'Referer': referer,
+                'Origin':'https://www.lagou.com',
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-Anit-Forge-Token': None,

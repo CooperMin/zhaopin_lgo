@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from zhaopin.setCookie import SetCookie
+
 # Scrapy settings for zhaopin project
 #
 # For simplicity, this file contains only settings considered important or
@@ -124,7 +126,10 @@ AUTOTHROTTLE_ENABLED = True
 #           'PRE_SITE': 'https%3A%2F%2Fwww.lagou.com%2Fjobs%2Flist_Python%3F%26px%3Ddefault%26city%3D%25E4%25B8%258A%25E6%25B5%25B7',
 #           'PRE_LAND': 'https%3A%2F%2Fwww.lagou.com%2Fjobs%2Flist_Python%3Fpx%3Dnew%26city%3D%25E4%25B8%258A%25E6%25B5%25B7'}
 
-COOKIE = {'_ga': 'GA1.2.1482172372.1536567995', 'user_trace_token': '20180910162642-3f23fed8-b4d3-11e8-8d43-525400f775ce', 'LGUID': '20180910162642-3f2401c0-b4d3-11e8-8d43-525400f775ce', 'showExpriedIndex': '1', 'showExpriedCompanyHome': '1', 'showExpriedMyPublish': '1', 'index_location_city': '%E4%B8%8A%E6%B5%B7', '_gid': 'GA1.2.320086161.1537423658', 'LGSID': '20180920140749-8039446e-bc9b-11e8-a270-525400f775ce', 'PRE_UTM': 'm_cf_cpt_baidu_pc', 'PRE_HOST': 'www.baidu.com', 'PRE_SITE': 'https%3A%2F%2Fwww.baidu.com%2Fs%3Fie%3DUTF-8%26wd%3D%25E6%258B%2589%25E5%258B%25BE', 'PRE_LAND': 'https%3A%2F%2Fwww.lagou.com%2Flp%2Fhtml%2Fcommon.html%3Futm_source%3Dm_cf_cpt_baidu_pc', 'WEBTJ-ID': '20180920140948-165f599498b1e2-0ae30b5637e6d-37664109-2073600-165f599498c90a', 'Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6': '1537247594,1537325931,1537423658,1537423788', 'JSESSIONID': 'ABAAABAAAGFABEFAE8226B74C9F26B4A7B7AFC188F01552', 'X_HTTP_TOKEN': '0b189e04723024cd1fb67155e4f34243', 'LG_LOGIN_USER_ID': '5bb9f0c5baa893ccac80e6c9d4e91a144eb6704c3f881303', '_putrc': '07C5713E3387BDE5', 'login': 'true', 'unick': '%E6%B1%AA%E6%8C%AF%E5%9B%BD', 'hasDeliver': '271', 'gate_login_token': '5d1e2b545fd3457ba7c03ff8353f072f07b152caa04a7862', '_gat': '1', 'TG-TRACK-CODE': 'index_navigation', 'LGRID': '20180920142702-2f9801bf-bc9e-11e8-a270-525400f775ce', 'Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6': '1537424811', 'SEARCH_ID': '78ba4ea343704523ba313491d07f5e50'}
+cookie = {'_ga': 'GA1.2.1482172372.1536567995', 'user_trace_token': '20180910162642-3f23fed8-b4d3-11e8-8d43-525400f775ce', 'LGUID': '20180910162642-3f2401c0-b4d3-11e8-8d43-525400f775ce', 'showExpriedIndex': '1', 'showExpriedCompanyHome': '1', 'showExpriedMyPublish': '1', 'index_location_city': '%E4%B8%8A%E6%B5%B7', '_gid': 'GA1.2.320086161.1537423658', 'LG_LOGIN_USER_ID': '5bb9f0c5baa893ccac80e6c9d4e91a144eb6704c3f881303', 'hasDeliver': '271', 'SEARCH_ID': '76ba428fa48f466ca6d0496dc557dd1e', 'WEBTJ-ID': '20180921142355-165facc92c8886-015a2b609c0ade-37664109-2073600-165facc92c977a', '_gat': '1', 'Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6': '1537423658,1537423788,1537430152,1537511036', 'LGSID': '20180921142407-f1a0ba42-bd66-11e8-bb56-5254005c3644', 'PRE_UTM': 'm_cf_cpt_baidu_pc', 'PRE_HOST': 'www.baidu.com', 'PRE_SITE': 'https%3A%2F%2Fwww.baidu.com%2Fs%3Fie%3DUTF-8%26wd%3Dlagou', 'PRE_LAND': 'https%3A%2F%2Fwww.lagou.com%2Flp%2Fhtml%2Fcommon.html%3Futm_source%3Dm_cf_cpt_baidu_pc', '_putrc': '07C5713E3387BDE5', 'JSESSIONID': 'ABAAABAAAGFABEF66F0D8EC34AE069224AF9DCEE681522D', 'login': 'true', 'unick': '%E6%B1%AA%E6%8C%AF%E5%9B%BD', 'gate_login_token': '0b37e796821a06b3103c9f6db0b559398b5ec05eda495fab', 'Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6': '1537511047', 'LGRID': '20180921142418-f837622d-bd66-11e8-bb56-5254005c3644'}
+
+
+
 
 REDIRECT_ENABLE = False
 
