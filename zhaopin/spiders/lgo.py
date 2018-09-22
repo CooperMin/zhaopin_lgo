@@ -10,7 +10,6 @@ import time
 class LgoSpider(scrapy.Spider):
     name = 'lgo'
     allowed_domains = ['www.lagou.com']
-    start_urls = ['http://www.lagou.com/']
     cookie = settings['COOKIE']
 
     def start_requests(self):
