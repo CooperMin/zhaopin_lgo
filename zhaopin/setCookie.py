@@ -3,11 +3,15 @@
 import os
 import json
 
+
+
+
+#对Cookie进行存取
 class SetCookie(object):
     def __init__(self,cookie):
         self.cookie = cookie
 
-    def dictCookie(self):
+    def dictCookie(self):#该函数将传入的cookie转换为字典形式
         itemDict = {}
         items = self.cookie.replace('\n','').split(';')
         for item in items:
@@ -16,7 +20,7 @@ class SetCookie(object):
             itemDict[key] = value
         return itemDict
 
-    def readDoc(self):
+    def readDoc(self):#从文本文件中读取原始的cookie，如果不存在，则创建空文件，并要求传入cookie信息
         txt = 'cookies.txt'
         while os.path.exists(txt) ==False:
             print('文件{1}{0}{2}不存在,已为您创建空文本，请将cookie填入该文件！'.format(txt,'\033[1;33m','\033[0m'))
@@ -48,12 +52,12 @@ class SetCookie(object):
                     cookie = cookieList[0]
                     return cookie
 
-    def saveDoc(self, itemDict):
+    def saveDoc(self, itemDict):#将格式化为字典形式后的cookie信息存入本地的json文件中
         with open('Cookies.json', 'a+', encoding='utf-8') as f:
             f.writelines(f'{itemDict}\n')
             print('Cookie格式化成功！')
 
-    def readCookie(self):
+    def readCookie(self):#该处代码待调整，暂不用
         with open('Cookies.json', 'r') as f:
             cookies = f.readlines()
             cookieList = []
