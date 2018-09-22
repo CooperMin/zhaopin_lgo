@@ -12,7 +12,7 @@ class LgoSpider(scrapy.Spider):
     allowed_domains = ['www.lagou.com']
     cookie = settings['COOKIE']
 
-    def start_requests(self):
+    def start_requests(self):#用做起始页面的函数，主要的参数信息都将通过该函数向下传输
         #此处可修改参数
         kws = {'px': 'new', 'city': '上海', 'district': '黄浦区', 'bizArea': '南京东路', 'kd': 'Python'}
         px = kws['px']
@@ -73,7 +73,7 @@ class LgoSpider(scrapy.Spider):
                 first = 'false'
             yield FormRequest(url=url,headers=hds,formdata={'first':first,'pn':f'{num}','kd':f'{kd}'},callback=self.parse,cookies=self.cookie,meta=meta,dont_filter=True)
 
-    def parse(self, response):
+    def parse(self, response):#判断列表页是否获取成功，成功则返回值，失败则报异常
         pn = response.meta['pn']
         referer =response.meta['referer']
         # print(response.text)
@@ -124,7 +124,7 @@ class LgoSpider(scrapy.Spider):
             msg = print("\033[1;31m{0}\n+访问失败:{1}!+\n{0}\033[0m".format(32*'+',json.loads(response.text)['msg']))
             return msg
 
-    def detail_parse(self,response):
+    def detail_parse(self,response):#获取详情页信息，提取所需字段，正常会返回值，若无相关数据则返回None
         item = response.meta['item']
         pn = response.meta['pn']
         item['job'] = response.xpath('//div[@class="job-name"]/@title')[0].extract()
